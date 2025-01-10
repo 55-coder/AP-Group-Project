@@ -44,3 +44,12 @@ class Trie:
                 return []
             node = node.children[char]
         return self._find_words_from(node, prefix)
+    
+    # Finds all suffixes starting from the given prefix
+    def find_suffixes(self, prefix):
+        node = self.root
+        for char in prefix:
+            if char not in node.children:
+                return []  # If prefix not found, return empty list
+            node = node.children[char]
+        return self._find_suffixes_from(node)
