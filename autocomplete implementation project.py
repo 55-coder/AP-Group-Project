@@ -27,3 +27,12 @@ class Trie:
         for char, child in node.children.items():
             results.extend(self._find_words_from(child, prefix + char))
         return results
+    
+    # Finds all words in the trie that start with a given prefix
+    def starts_with(self, prefix):
+        node = self.root
+        for char in prefix:
+            if char not in node.children:
+                return []
+            node = node.children[char]
+        return self._find_words_from(node, prefix)
