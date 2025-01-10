@@ -19,6 +19,7 @@ class Trie:
             node = node.children[char]
         return node.is_end_of_word
 
+    # Adds a word into the trie
     def insert(self, word):
         node = self.root
         for char in word:
@@ -53,3 +54,13 @@ class Trie:
                 return []  # If prefix not found, return empty list
             node = node.children[char]
         return self._find_suffixes_from(node)
+
+    # Helper to collect suffixes starting from a specific node
+    def _find_suffixes_from(self, node):
+        suffixes = []
+        if node.is_end_of_word:
+            suffixes.append("")  # If a word ends here, the suffix is empty
+        for char, child in node.children.items():
+            for suffix in self._find_suffixes_from(child):
+                suffixes.append(char + suffix)
+        return suffixes
